@@ -27,14 +27,14 @@ export default function Kitties (props) {
     let unsubscribe
     api.query.kittiesModule.kittiesCount(cnt => {
       if (cnt !== '') {
-        console.log('kitties count: ', cnt)
+        // The amounts of all kitties.
         const kittyIds = Array.from(Array(parseInt(cnt, 10)), (v, k) => k)
+        // The owners of all kitties.
         api.query.kittiesModule.owner.multi(kittyIds, kittyOwners => {
-          console.log('kittyOwners:', kittyOwners)
           setKittyOwners(kittyOwners)
         }).catch(console.error)
+        // The DNAs of all kitties.
         api.query.kittiesModule.kitties.multi(kittyIds, kittyDna => {
-          console.log('kittyDna:', kittyDna)
           setKittyDNAs(kittyDna)
         }).catch(console.error)
       }
